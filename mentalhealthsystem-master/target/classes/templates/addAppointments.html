@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <title>Add New Appointment</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'IBM Plex Sans Arabic';
+        }
+        body{
+            background: linear-gradient(-45deg, #93A5CF , #E4EfE9, #93A5CF , #E4EfE9);
+            background-size: 400% 400%;
+	        animation: gradient 15s ease infinite;
+	        height: 100vh;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .hero{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Sans Arabic';
+        }
+        .con{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card{
+            width: 500px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+            margin : 70px auto;
+        }
+        .hero1{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .crd{
+            width: 250px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+            margin: 19px;
+            display: flex;
+            /* align-items: flex-start; */
+            /* justify-content: right; */
+
+            /* flex-wrap: wrap; */
+        }
+        .card1{
+            width: 100px;
+            background: #fff;
+            margin-right: auto;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+        }
+        .card2{
+            width: 100px;
+            background: #fff;
+            margin-left: auto;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+
+        }
+        .appointment-list {
+            margin-top: 20px;
+        }
+        .appointment-item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .appointment-item form {
+            display: inline;
+        }
+        .delete-btn,
+        .update-btn {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .update-btn {
+            background-color: #17a2b8;
+            margin-right: 5px;
+        }
+        .add-appointment-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .add-appointment-form input[type="datetime-local"] {
+            margin-right: 10px;
+        }
+        .add-appointment-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-appointment-form button:hover {
+            background-color: #0056b3;
+        }
+                header {
+    background: rgba(255, 255, 255, .9);
+    backdrop-filter: blur(10px);
+    /* Blur effect */
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    /* Shadow */
+    position: sticky;
+    /* Make the header sticky */
+    top: 0;
+    /* Stick it to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it's above other content */
+}
+
+
+/* Navigation styling */
+nav {
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0 1em;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    /* Smooth color transition on hover */
+}
+
+nav ul li a:hover {
+    color: #6d6be4;
+    /* Darker color on hover */
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+
+            <li><a href="/doctors/availableAppointments">المواعيد المتاحة</a></li>
+            <li><a href="/doctors/GetAddAppointments">اضافة مواعيد</a></li>
+            <li><a href="/doctors/EditProfile">تعديل الملف الشخصي</a></li>
+            <li><a href="/doctors/dashboard">حسابك</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="hero">
+    <div class="card">
+        <div class="add-appointment-form">
+            <h2>Add New Appointment</h2>
+            <form id="addAppointmentForm" th:action="@{'/doctors/' + ${email}  + '/appointments/add'}" method="post">
+                <input type="datetime-local" id="appointmentDateTime" name="appointmentDateTime" required>
+                <button type="submit" id="AddApp" >Add Appointment</button>
+            </form>
+        </div>
+        <div class="appointment-list">
+            <h2>Appointments</h2>
+            <div class="appointment-item" th:each="appointment : ${appointments}">
+
+                <form th:action="@{'/doctors/' + ${email} + '/appointments/' + ${appointment.id} + '/update'}" method="post">
+                    <input type="datetime-local" name="session" th:value="${appointment.session}" required>
+                    <button class="update-btn" type="submit">Update</button>
+                </form>
+                <form th:action="@{'/doctors/' + ${email}  + '/appointments/' + ${appointment.id} + '/delete'}" method="post">
+                    <button class="delete-btn" type="submit">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+        // function go_to(){
+        //     window.location.href="ScheduleAppointment.html";
+        // }
+        fetch('MainSide.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('includedContent').innerHTML = data;
+    });
+    </script>
+</body>
+</html>

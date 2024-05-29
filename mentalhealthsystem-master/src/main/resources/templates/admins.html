@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Lists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'IBM Plex Sans Arabic'; }
+    .card {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 20px;
+        box-sizing: border-box;
+        font-family: 'IBM Plex Sans Arabic';
+        margin-top: 70px;
+    }
+    nav {
+        background-color: #333;
+        padding: 10px 0;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    nav ul {
+        list-style: none;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    nav ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+    nav ul li a {
+        color: white;
+        font-weight: bold;
+        transition: color 0.3s ease;
+        text-decoration: none;
+    }
+    nav ul li a:hover {
+        color: #6d6be4;
+        text-decoration: none;
+    }
+    i {
+        margin-left: -30px;
+        cursor: pointer;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+    .blue-card {
+        background-color: #93A5CF;
+        color: white;
+    }
+    .white-card {
+        background-color: #E4EfE9;
+        color: black;
+    }
+    .searchbar {
+        margin-right: 10px;
+        border-radius: 40px;
+    }
+    .searchicon {
+        color: #93A5CF;
+        display: flex;
+        margin-top: 8px;
+        margin-right: 10px;
+    }
+    .search-container {
+        background: #fff;
+        height: 40px;
+        border-radius: 30px;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.8s;
+        box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        inset -7px -7px 10px 0px rgba(0,0,0,.1),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        text-shadow: 0px 0px 6px rgba(255,255,255,.3),
+          -4px -4px 6px rgba(116, 125, 136, .2);
+        text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    }
+    .search-container:hover > .search-input {
+        width: 400px;
+    }
+    .search-container .search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 0px;
+        font-weight: 500;
+        font-size: 16px;
+        transition: 0.8s;
+    }
+    .search-container .search-btn .fas {
+        color: #5cbdbb;
+    }
+    .search-container:hover {
+        animation: hoverShake 0.15s linear 3;
+    }
+        a:hover {
+            text-decoration: none;
+            color: #6d6be4;
+        }
+        a{
+            text-decoration: none;
+            color: #6d6ae4;
+        }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/admins/adminList">المسؤولين</a></li>
+      <li><a href="/admins/AdminDash">المختصين</a></li>
+      <li><a href="/admins/dashboard">حسابك</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="container">
+  <div class="card blue-card">
+    <h3>Admins who submitted the application</h3>
+    <form th:action="@{/admins/searchRequestedAdmins}" method="post">
+      <label>Search by Email:</label>
+      <div style="display: flex; justify-content: center;">
+        <div class="search-container" style="text-align: end;">
+          <input type="text" name="email" placeholder="Search..." class="search-input">
+          <a href="#" class="search-btn">
+            <i class="fas fa-search"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+    <div th:each="admin : ${requestedAdmins}">
+      <div style="margin-left: 25px;">
+        <h5 class="card-title" th:text="${admin.name}"></h5>
+        <a th:href="@{'/admins/adminDetails/' + ${admin.email}}" style="color: black;">View Details</a>
+        <p></p>
+        <a th:href="@{'/admins/acceptAdmin/' + ${admin.email}}" style="color: black;">Accept Admin</a>
+        <p></p>
+        <a th:href="@{'/admins/rejectAdmin/' + ${admin.email}}" style="color: black;">Reject Admin</a>
+      </div>
+    </div>
+  </div>
+  <div class="card white-card">
+    <h3>Admins who are on the system</h3>
+    <form th:action="@{/admins/searchSystemAdmins}" method="get">
+      <label>Search by Email:</label>
+      <div style="display: flex; justify-content: center;">
+        <div class="search-container" style="text-align: end;">
+          <input type="text" name="email" placeholder="Search..." class="search-input">
+          <a href="#" class="search-btn">
+            <i class="fas fa-search"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+    <div th:each="admin : ${systemAdmins}">
+      <div style="margin-left: 10px;">
+        <h5 class="card-title" th:text="${admin.name}"></h5>
+        <a th:href="@{'/admins/adminDetails/' + ${admin.email}}">View Details</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

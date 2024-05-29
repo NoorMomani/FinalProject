@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet"
+        href=
+                "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <link rel="stylesheet"
+        href=
+                "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity=
+                "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <title th:text="${doctor.name}">Doctor Details</title>
+  <style>
+        body{
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-family: 'IBM Plex Sans Arabic';
+
+        }
+        .card{
+            color: #000;
+            margin-bottom: 1rem;
+            border: 1px solid #fff;
+            /* text-align: right; */
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .container{
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        h2{
+            text-align: center;
+        }
+        .container img{
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .container p{
+            line-height: 1.2;
+            margin-bottom: 10px;
+             font-weight: bold;
+            direction: rtl;
+            text-align: right;
+            font-size: 13px;
+        }
+        .container h5{
+            width: 160px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background-color: #0056b3;
+            color:#fff;
+            border-radius: 5px;
+        }
+        .container h5:hover{
+            background-color: #567cdd;
+        }
+        .about-section {
+            /* background: linear-gradient(to bottom, #f2f2f2, #fff); */
+            background-color: rgb(245, 253, 253);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .submit-button {
+            height: 30px;
+            padding: 10px 20px;
+            background-color: #E4EfE9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+
+        }
+        input[type="date"],[type="time"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+
+        }
+        input[type="date"]:focus {
+            border-color: #008080;
+
+        }
+        [type="date"] {
+            background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+        }
+        [type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+        [type="date"]::-webkit-calendar-picker-indicator {
+            opacity: 0;
+        }
+        .price-icon {
+            margin-top: -10px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .liketable{
+            height: 30px;
+            padding: 10px 20px;
+            background-color: #93A5CF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 30px;
+        }
+
+
+header {
+    background: rgba(255, 255, 255, .9);
+    backdrop-filter: blur(10px);
+    /* Blur effect */
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    /* Shadow */
+    position: sticky;
+    /* Make the header sticky */
+    top: 0;
+    /* Stick it to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it's above other content */
+}
+
+
+/* Navigation styling */
+nav {
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0 1em;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    /* Smooth color transition on hover */
+}
+
+nav ul li a:hover {
+    color: #6d6be4;
+    /* Darker color on hover */
+}
+    </style>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="http://localhost:8081">دردش معي</a></li>
+      <li><a href="/patients/dashboard">حسابك</a></li>
+      <li><a href="/blog/blogs">المدونة</a></li>
+      <li><a href="/patients/Doctor/List">المختصين</a></li>
+      <li><a href="/assessments/viewAssessment">المقاييس</a></li>
+      <li><a href="/homepage">الرئيسية</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="container">
+  <img th:src="${doctor != null && doctor.profilePictureContent != null ? '/patients/' + doctor.email + '/profile-picture/doctor' : '/images/userimg.png'}">
+  <h2><span th:text="${doctor.name}">khaled rajaie</span></h2>
+  <br>
+  <p  th:text="'Details of Dr. ' + ${doctor.name}">نبذة عن المختص:</p>
+  <div class="card">
+    <h6 th:text="${doctor.aboutTheDoctor}" style="font-size: 13px;">khaled rajaie yaser abdullah</h6>
+  </div>
+  <hr class="mt-0 mb-4" style="opacity: 0.07;">
+
+  <div class="about-section">
+
+    <p class="price-container">
+      <i class="bi bi-person-check-fill price-icon"></i>
+      سنوات الخبرة :
+      <span th:text="${doctor.yearsOfExperience}" >...</span>
+    </p>
+
+    <p class="price-container">
+      <i class="bi bi-cash price-icon"></i>
+      سعر الجلسة:
+      <span th:text="${doctor.sessionPrice}">...</span>
+    </p>
+  </div>
+  <br>
+
+  <h4 style="text-align: right;">:احجز جلستك</h4>
+  <br>
+
+
+  <ul style="list-style-type: none;">
+    <div style="display: flex;justify-content: center;">
+      <h5 onclick="vis()">اختر الوقت المناسب</h5>
+    </div>
+    <div style="display: none;" id="dis">
+      <li th:each="appointment : ${appointments}">
+        <div style="display: flex;justify-content: center;">
+          <span th:text="${appointment.session}" class="liketable"></span>
+
+
+          <form th:if="${!appointment.booked}" th:action="@{'/patients/book/' + ${appointment.id}}" method="post">
+            <button type="submit" class="submit-button">احجز جلستك</button>
+          </form>
+          <span th:if="${appointment.booked}">Booked</span>
+        </div>
+        <br>
+        <br>
+      </li>
+
+    </div>
+  </ul>
+
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) {
+            var text = card.textContent.trim();
+            var hasArabic = /[\u0600-\u06FF]/.test(text);
+            if (hasArabic) {
+                card.style.direction = 'rtl';
+                card.style.textAlign ='right';
+            } else {
+                card.style.direction = 'ltr';
+                card.style.textAlign ='left';
+            }
+        });
+    });
+    function vis() {
+        var x = document.getElementById("dis");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    </script>
+</body>
+</html>

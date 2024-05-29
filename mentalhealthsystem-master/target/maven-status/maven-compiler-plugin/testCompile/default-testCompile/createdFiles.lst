@@ -1,0 +1,11 @@
+com\example\mentalhealthsystem\service\SignUpServiceTest.class
+com\example\mentalhealthsystem\service\QuestionServiceTest.class
+com\example\mentalhealthsystem\MentalHealthSystemApplicationTests.class
+com\example\mentalhealthsystem\service\MentalHealthUserDetailsServiceTest.class
+com\example\mentalhealthsystem\service\PatientServiceTest.class
+com\example\mentalhealthsystem\service\DoctorServiceTest.class
+com\example\mentalhealthsystem\service\AdminServiceTest.class
+com\example\mentalhealthsystem\service\ValidatorServiceTest.class
+com\example\mentalhealthsystem\service\AnswerServiceTest.class
+com\example\mentalhealthsystem\service\AssessmentServiceTest.class
+com\example\mentalhealthsystem\service\LocationServiceTest.class

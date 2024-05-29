@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      font-family: 'Roboto', sans-serif;
+      padding-top: 50px;
+    }
+
+    .container {
+      max-width: 800px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 30px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+      background: linear-gradient(to right, #93a5cf, #e4efe9);
+      color: #fff;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card-text {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #6c757d;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #495057;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .icon {
+      margin-right: 10px;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center mb-4">Doctor Details</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-user icon"></i>Name: <span th:text="${doctor.name}"></span></h5>
+          <p class="card-text"><i class="fas fa-envelope icon"></i>Email: <span th:text="${doctor.email}"></span></p>
+          <p class="card-text"><i class="fas fa-phone icon"></i>Phone: <span th:text="${doctor.phoneNumber}"></span></p>
+          <p class="card-text"><i class="fas fa-venus-mars icon"></i>Gender: <span th:text="${doctor.gender}"></span></p>
+          <p class="card-text"><i class="fas fa-globe icon"></i>Country: <span th:text="${doctor.country}"></span></p>
+          <p class="card-text"><i class="fas fa-city icon"></i>City: <span th:text="${doctor.city}"></span></p>
+          <p class="card-text"><i class="fas fa-briefcase icon"></i>Years of Experience: <span th:text="${doctor.yearsOfExperience}"></span></p>
+          <p class="card-text"><i class="fas fa-user-md icon"></i>Job Title: <span th:text="${doctor.jobTitle}"></span></p>
+          <p class="card-text"><i class="fas fa-file-alt icon"></i>CV: <a th:href="@{/downloadCv(email=${doctor.email})}" th:text="${doctor.cvFileName}"></a></p>
+          <p class="card-text"><i class="fas fa-id-card icon"></i>Identity License: <a th:href="@{/downloadIdentityLicense(email=${doctor.email})}" th:text="${doctor.identityLicenseFileName}"></a></p>
+
+          <!-- Password Change Form -->
+          <form action="/admins/changePassword" method="post" class="mt-4">
+            <input type="hidden" name="email" th:value="${doctor.email}" />
+            <div class="form-group">
+              <label for="newPassword"><i class="fas fa-key icon"></i>New Password:</label>
+              <input type="password" class="form-control" id="newPassword" name="newPassword" required />
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-exchange-alt icon"></i>Change Password</button>
+          </form>
+
+          <!-- Delete Form -->
+          <form action="/admins/deleteDoctor" method="post" class="mt-2">
+            <input type="hidden" name="email" th:value="${doctor.email}" />
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash icon"></i>Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

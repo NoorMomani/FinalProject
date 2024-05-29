@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: MentalHealthSystem
+    ports:
+      - "3307:3306"
+
+  gemini-pro-streamlit-chatbot-main:
+    build:
+      context: ./gemini-pro-streamlit-chatbot-main
+    container_name: gemini-pro-streamlit-chatbot-main
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+      - FLASK_ENV=development
+      - GOOGLE_API_KEY=AIzaSyAQ313Y5CKYfHCcEVyN8QdHtWMHZUVrkG8
+
+  mentalhealthsystem-master :
+    build:
+      context: ./mentalhealthsystem-master
+      dockerfile: Dockerfile
+    container_name: mentalhealthsystem-master
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gemini-pro-streamlit-chatbot-main
+      - mysql
+    network_mode: "networkmysql"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DB=MentalHealthSystem
+

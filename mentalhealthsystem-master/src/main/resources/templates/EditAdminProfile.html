@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <title>Edit Admin Profile</title>
+  <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic';
+            background: linear-gradient(-45deg, #93A5CF , #E4EfE9, #93A5CF , #E4EfE9);
+             background-size: 400% 400%;
+             animation: gradient 15s ease infinite;
+             height: 100vh;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .container {
+            width: 30%;
+            margin: 90px auto;
+            background-color: #F1FAFA;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: "Open Sans", sans-serif;
+            font-size: 12px;
+
+        }
+        .con{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2 {
+            text-align: center;
+            color: #009cff;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            background-color: #F1FAFA;
+
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 2rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .success-message {
+            background-color: #5cb85c;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p{
+            font-weight: lighter;
+            display: flex;
+            justify-content: center;
+        }
+        .submit-button {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 200px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            /* margin: 10px; */
+            margin-top: -100px;
+            margin-bottom: 20px;
+
+        }
+
+    </style>
+</head>
+<body>
+<form id="editProfileForm"  enctype="multipart/form-data" th:action="@{'/admins/' + ${admin.email} + '/update'}" method="post">
+  <div class="container">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" th:value="${admin.name}" required><br>
+    </div>
+
+    <div class="form-group">
+      <label for="nationality">Nationality:</label>
+      <input type="text" id="nationality" name="nationality" th:value="${admin.nationality}" ><br>
+    </div>
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" id="country" name="country" th:value="${admin.country}" ><br>
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" th:value="${admin.city}" ><br>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" th:value="${admin.phoneNumber}" ><br>
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option th:value="Male" th:text="'Male'" th:if="${admin.gender == 'Male'}" selected>Male</option>
+        <option th:value="Male" th:text="'Male'" th:unless="${admin.gender == 'Male'}">Male</option>
+        <option th:value="Female" th:text="'Female'" th:if="${admin.gender == 'Female'}" selected>Female</option>
+        <option th:value="Female" th:text="'Female'" th:unless="${admin.gender == 'Female'}">Female</option>
+      </select><br>
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" th:value="${admin.age}" ><br>
+    </div>
+  </div>
+  <div class="con">
+    <button type="submit"  class="submit-button">Save Changes</button>
+  </div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+
+    <title>Title</title>
+    <style>
+        body {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right,#9AD0C2,#F1FADA);
+            text-align: right;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #F1FAFA;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h2 {
+            margin-top: 0;
+            direction: rtl;
+            unicode-bidi: bidi-override;
+        }
+
+        .options {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .options label {
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            text-align: left;
+            margin-bottom: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .nav-buttons {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .nav-buttons button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form id="anxietyTestForm" action="/assessments/submitTest" method="post">
+        <div id="questions">
+            <input type="hidden" name="assessmentName" th:value="${assessmentName}">
+
+            <th:block th:each="question, questionStat : ${assessmentQuestions}">
+                <div class="question" th:classappend="${questionStat.index == 0} ? ' active'">
+                    <div class="form-group">
+                        <h2> <label th:text="${question}"></label></h2>
+                        <div class="options">
+                            <th:block th:each="answer , answerStat: ${assessmentAnswers}">
+                                <label><span th:text="${answer}"></span></label>
+                                <input type="radio" th:name="'answer' + ${questionStat.index + 1}" th:value="${answerStat.index}" required> <br>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="nav-buttons">
+            <button type="button" id="prevButton" onclick="showPreviousQuestion()">Previous</button>
+            <button type="button" id="nextButton" onclick="showNextQuestion()">Next</button>
+            <button type="submit" id="submitButton" style="display:none;">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    let currentQuestionIndex = 0;
+    const questions = document.querySelectorAll('.question');
+
+    function showQuestion(index) {
+        questions.forEach((question, i) => {
+            question.classList.toggle('active', i === index);
+        });
+        document.getElementById('prevButton').style.display = index === 0 ? 'none' : 'inline-block';
+        document.getElementById('nextButton').style.display = index === questions.length - 1 ? 'none' : 'inline-block';
+        document.getElementById('submitButton').style.display = index === questions.length - 1 ? 'inline-block' : 'none';
+    }
+
+    function showNextQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+        const selectedOption = currentQuestion.querySelector('input[type="radio"]:checked');
+
+        if (!selectedOption) {
+            alert('الرجاء تحديد إجابة قبل المتابعة');
+            return;
+        }
+
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+    }
+
+    function showPreviousQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showQuestion(currentQuestionIndex);
+    });
+</script>
+</body>
+</html>
